@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Cosign
         uses: chainguard-actions/cosign-installer@0ac3a167a7c7cba3bc0c2a13d1f2abcf18adecda
