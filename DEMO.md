@@ -30,7 +30,7 @@ In this demo, we will see a pipeline that installs some tooling to interact with
 In this pipeline we are installing some tooling to interact with a remote registry (`crane`) and verify signatures of these images (`cosign`). Let's view the pipeline code.
 
 ### View Current State
-- Navigate to `test-original.yml`
+- Navigate to `.github/workflows/test-original.yml`
   - Note the SHA-pinning practice, but ultimately, pulling from public repositories with various maintainers.
 
 #### *Key points:* 
@@ -40,12 +40,12 @@ In this pipeline we are installing some tooling to interact with a remote regist
 ### What's the solution?
 
 - Check for a Chainguard alternative. Visit the [Chainguard Actions organization](https://github.com/chainguard-actions).
-- Search for `setup-crane` under `Repositories`.
-- Show the `HARDENING.md` (on main branch, otherwise on release's branch).
+- Search for `imjasonh-setup-crane` under `Repositories`.
+- Show the [`HARDENING.md`](https://github.com/chainguard-actions/imjasonh-setup-crane/blob/v0.5/HARDENING.md) (on the release branch).
 - Note the `Findings Fixed: script-injection` and the possible RCE vulnerability.
 - Compare the upstream code to Chainguard's alternative.
   - Upstream [Line 22](https://github.com/imjasonh/setup-crane/blob/main/action.yml#L22) takes an `${{ inputs.version }}` user-supplied input into a shell could be attacked with remote code execution. The problem here is input is interpolated directly into the shell script.
-  - Chainguard version [Line 26](https://github.com/chainguard-actions/setup-crane/blob/main/action.yml#L26) takes the user input and then assigns into to an envar, so it does not execute the input as code.
+  - Chainguard version [Line 26](https://github.com/chainguard-actions/imjasonh-setup-crane/blob/v0.5/action.yml#L26) takes the user input and then assigns into to an envar, so it does not execute the input as code.
 
 #### *Key points:*
 - We harden actions from the upstream and modify the actual yaml code to follow security best practices
@@ -55,7 +55,7 @@ In this pipeline we are installing some tooling to interact with a remote regist
 - We publish to our own GitHub repository, eliminating risk of modifying releases as a public maintainer
 
 ### Show the change
-- Navigate to your demo project and view `test-chainguard-tag.yml`
+- Navigate to your demo project and view `.github/workflows/test-chainguard-tag.yml`
 - Show the only change is the reference to `chainguard-actions` and the updated SHA to point to the SHA for our action.
 - Navigate to `depandabot.yml` and note that there is no change needed to this file to keep chainguard-actions up to date.
 - Visit the [pull request](https://github.com/chainguard-demo/actions-demo/pull/1) bumping the version of the action to a newer SHA, showcasing no change to the depednabot workflow.
