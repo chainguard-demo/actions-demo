@@ -9,6 +9,7 @@ Current actions are `chainguard-actions/sigstore-cosign-installer` and `chaingua
 
 - Entitle your organization by running the following command: `chainctl actions entitlement create` and select your organization.
 - Fork the project to show in the `Settings` that you can restrict where actions come from.
+- Enable the [Guardener App](https://github.com/apps/chainguard-guardener) on your fork, ex. `cupofpython/actions-demo`
 
 ## Notes:
 To get the SHA of any action, run this command with the `gh` CLI.

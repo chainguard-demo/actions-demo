@@ -55,14 +55,14 @@ In this pipeline we are installing some tooling to interact with a remote regist
 - We publish to our own GitHub repository, eliminating risk of modifying releases as a public maintainer
 
 ### Show the change
-- Navigate to your demo project and view `.github/workflows/test-chainguard-tag.yml`
+- Navigate to your demo project and view `.github/workflows/test-chainguard-sha.yml`
 - Show the only change is the reference to `chainguard-actions` and the updated SHA to point to the SHA for our action.
 - Navigate to `depandabot.yml` and note that there is no change needed to this file to keep chainguard-actions up to date.
 - Visit the [pull request](https://github.com/chainguard-demo/actions-demo/pull/1) bumping the version of the action to a newer SHA, showcasing no change to the depednabot workflow.
 - Visit the pipeline run and note that the pipeline still works as expected.
 
 #### *Key points:*
-- It's incredibly easy to leverage Chainguard Actions, all you have to do is update the upstream organization to `chainguard-actions` and pin to the SHA of choice (or tag)
+- It's incredibly easy to leverage Chainguard Actions, all you have to do is update the upstream organization to `chainguard-actions` and pin to the SHA of choice.
 - The pipelines have parity
 - There is no change to your dependabot configuration to use something like Chainguard Actions, as they are simply modified yaml
 
@@ -72,6 +72,17 @@ In this pipeline we are installing some tooling to interact with a remote regist
 
 #### *Key points:*
 - You can enforce using actions in the chainguard-actions organization and your own
+
+### Migrate with the Guardener GitHub App
+- Chainguard released a GitHub app that you can enable for your repository
+- The app runs a job on a schedule to check for Chainguard equivalents for actions you are pulling from public sources
+- Simply visit the [app site](https://github.com/apps/chainguard-guardener) and select `Configure` and allow the app access to your repos
+- Then add the `actions.yaml` to your `.chainguard` directory at the root of the repo
+- Navigate to the `.chainguard/actions.yaml` file to show the file added
+- Navigate to the open PRs to see the suggestions to `test-original.yml`
+
+#### *Key points*
+- It is possible and easy to migrate at scale with the GitHub app
 
 ### Tell
 In this demo, we showed a GitHub Actions pipeline using publically maintained source code that could be affected by the mutablility of actions releases. We saw a real script-injection vulnerability in one of the included actions detected by Chainguard, and a patched action built by Chainguard that eliminated the risk of remote code execution. We saw how to convert to Chainguard Actions, and how it fits in our current configuration for GitHub Actions.
